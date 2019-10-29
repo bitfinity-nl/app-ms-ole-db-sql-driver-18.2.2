@@ -1,0 +1,40 @@
+---
+  # Title: app-ms-ole-db-sql-driver-18.2.2
+  #
+  # Author: Luc Rutten
+  # File: defaults/main.yml
+  #
+  # Description:
+  #   Template for building Ansible Windows applications
+  #
+  # Howto:
+  #  1. add variable {{ def_ans_repo }}
+  #  2. Zip all files in 1 file.
+  #  3. Upload the file to the web/download server.
+  #  4. Edit defaults/main.yml to your needs.
+  #  5. Add the role to your playbook.
+  #
+  # https://docs.microsoft.com/en-us/sql/connect/oledb/applications/installing-oledb-driver-for-sql-server?view=sql-server-ver15
+
+
+
+  # -- Applications settings --
+  #
+  # Variable(s)
+  #   pkg_state        : 'present' or 'absent'                                 # Whether the application should be installed or removed (present=install, absent=removed).
+  #   pkg_name         : '7zip1805-x64'                                        # Name of the application.
+  #   pkg_arch         : '32bit' or '64bit'                                    # Whether the application is a 32bit or a 64bit application.
+  #   pkg_repo_local   : 'c:\ProgramData\ansible\cached\{{ pkg_name }}'        # Local path to package (Do not change).
+  #   pkg_repo_remote  : 'http://dl.example.com/resource/7zip/7z1805-x64.zip'  # Remote url to package (needs to be zip file).
+  #   pkg_product_id   : '{23170F69-40C1-2702-1805-000001000000}'              # Product can be found in "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" or "HKLM:\SOFTWARE\Wow6432Node\M$
+  #   pkg_installer    : '{{ pkg_repo_local }}\7z1805-x64.msi'                 # Executable for the installation.
+  #   pkg_arguments    : '/qn'                                                 # Additional Arguments for a silent installation.
+  #
+  pkg_state        : 'present'
+  pkg_name         : 'msoledbsql'
+  pkg_arch         : '64bit'
+  pkg_repo_local   : 'c:\ProgramData\ansible\cached\{{ pkg_name }}'
+  pkg_repo_remote  : 'http://{{ def_ans_rep }}/resources/extendas/MS-OLEDB-SQL-Driver/18.2.2/msoledbsql_18.2.2.0_x64.msi.zip'
+  pkg_product_id   : '{A395278F-3211-4F28-ADF9-D6028F93AB70}'
+  pkg_installer    : '{{ pkg_repo_local }}\msoledbsql_18.2.2.0_x64.msi'
+  pkg_arguments    : 'IACCEPTMSOLEDBSQLLICENSETERMS=YES'
